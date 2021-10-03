@@ -27,6 +27,7 @@ class PageController extends Controller
 
     function full_name($fname, $lname) {
         $full_name = "$fname $lname";
+
         return view('home')->with('full_name', $full_name);
     }
 }
