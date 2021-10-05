@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContentController;
 
 // Route::get('/', function () {
 //     // return 'Homepage';
@@ -105,7 +106,12 @@ Route::get('/', function() {
 //     }
 // });
 
-Route::get('/{op}/{x}/{y}', [PageController::class, 'calculate'])->name('operation');
-// Route::get('/{op}/{x}/{y}', 'PageController@calculate'); // Before Laravel 8
+// Route::get('/{op}/{x}/{y}', [PageController::class, 'calculate'])->name('operation');
+// // Route::get('/{op}/{x}/{y}', 'PageController@calculate'); // Before Laravel 8
 
-Route::get('/{fname}/{lname}', [PageController::class, 'full_name']);
+// Route::get('/{fname}/{lname}', [PageController::class, 'full_name']);
+
+// Route::view('service-policy', 'policy');
+
+Route::get('avg/{name}/{avg}', [ContentController::class, 'avg'])->name('avg');
+Route::get('students', [ContentController::class, 'students'])->name('students');
