@@ -72,7 +72,7 @@ Route::get('services/{name?}', function($name = '') {
 //     return "$username photos";
 // })->name('userphoto');
 Route::get('/', function() {
-    return "This is home URL";
+    return "This is home URL New Code will be added here";
 });
 
 // Route::get('add/{x}/{y}', function($x, $y) {
