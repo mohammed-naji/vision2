@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\SiteController;
 
 // Route::get('/', function () {
 //     // return 'Homepage';
@@ -115,3 +116,18 @@ Route::get('/', function() {
 
 Route::get('avg/{name}/{avg}', [ContentController::class, 'avg'])->name('avg');
 Route::get('students', [ContentController::class, 'students'])->name('students');
+
+Route::prefix('site')->group(function() {
+    Route::get('/', [SiteController::class, 'index'])->name('index');
+    Route::get('/about', [SiteController::class, 'about'])->name('about');
+    Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+    Route::get('/team', [SiteController::class, 'team'])->name('team');
+    Route::get('/services', [SiteController::class, 'services'])->name('services');
+    Route::get('/blog', [SiteController::class, 'blog'])->name('blog');
+});
+
+// site/
+// site/about
+// site/contact
+// site/team
+// site/services
