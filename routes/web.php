@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\SiteController;
 
 // Route::get('/', function () {
@@ -117,6 +118,7 @@ Route::get('/', function() {
 Route::get('avg/{name}/{avg}', [ContentController::class, 'avg'])->name('avg');
 Route::get('students', [ContentController::class, 'students'])->name('students');
 
+
 Route::prefix('site')->group(function() {
     Route::get('/', [SiteController::class, 'index'])->name('index');
     Route::get('/about', [SiteController::class, 'about'])->name('about');
@@ -131,3 +133,16 @@ Route::prefix('site')->group(function() {
 // site/contact
 // site/team
 // site/services
+
+
+// Route::get('portfolio', );
+// Route::get('portfolio/portfolio', );
+// Route::get('portfolio/about', );
+// Route::get('portfolio/contact', );
+
+Route::prefix('portfolio')->group(function() {
+    Route::get('/', [PortfolioController::class, 'index'])->name('port.index');
+    Route::get('/portfolio', [PortfolioController::class, 'portfolio'])->name('port.portfolio');
+    Route::get('/about', [PortfolioController::class, 'about'])->name('port.about');
+    Route::get('/contact', [PortfolioController::class, 'contact'])->name('port.contact');
+});
