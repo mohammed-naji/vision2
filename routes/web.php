@@ -145,4 +145,7 @@ Route::prefix('portfolio')->group(function() {
     Route::get('/portfolio', [PortfolioController::class, 'portfolio'])->name('port.portfolio');
     Route::get('/about', [PortfolioController::class, 'about'])->name('port.about');
     Route::get('/contact', [PortfolioController::class, 'contact'])->name('port.contact');
+    Route::post('/contact', [PortfolioController::class, 'contactSubmit'])->name('port.contactSubmit');
+    Route::put('/contact', [PortfolioController::class, 'contactEdit'])->name('port.contactEdit');
+    Route::delete('/contact', [PortfolioController::class, 'contactDelete'])->name('port.contactDelete');
 });
