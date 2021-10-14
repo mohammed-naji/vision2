@@ -27,7 +27,7 @@
                         @endforeach
                     </div>
                 @endif --}}
-                <form id="contactForm" action="{{ route('port.contactSubmit') }}" method="post">
+                <form id="contactForm" action="{{ route('port.contactSubmit') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{-- @method('delete') --}}
                     <!-- Name input-->
@@ -59,6 +59,14 @@
                         <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required">{{ old('message') }}</textarea>
                         <label for="message">Message</label>
                         @error('message')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="name" type="file" name="image" />
+                        <label for="name">Image</label>
+                        @error('image')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

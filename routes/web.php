@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgencyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContentController;
@@ -148,4 +149,10 @@ Route::prefix('portfolio')->group(function() {
     Route::post('/contact', [PortfolioController::class, 'contactSubmit'])->name('port.contactSubmit');
     Route::put('/contact', [PortfolioController::class, 'contactEdit'])->name('port.contactEdit');
     Route::delete('/contact', [PortfolioController::class, 'contactDelete'])->name('port.contactDelete');
+});
+
+
+Route::prefix('agency')->group(function() {
+    Route::get('/', [AgencyController::class, 'index']);
+    Route::post('contactus', [AgencyController::class, 'contact'])->name('agencycontact');
 });
