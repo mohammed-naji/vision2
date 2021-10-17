@@ -4,6 +4,7 @@ use App\Http\Controllers\AgencyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\SiteController;
 
@@ -156,3 +157,7 @@ Route::prefix('agency')->group(function() {
     Route::get('/', [AgencyController::class, 'index']);
     Route::post('contactus', [AgencyController::class, 'contact'])->name('agencycontact');
 });
+
+
+Route::get('email', [EmailController::class, 'index']);
+Route::post('email', [EmailController::class, 'emailData'])->name('emailurl');
