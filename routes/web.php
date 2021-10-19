@@ -161,3 +161,7 @@ Route::prefix('agency')->group(function() {
 
 Route::get('email', [EmailController::class, 'index']);
 Route::post('email', [EmailController::class, 'emailData'])->name('emailurl');
+
+
+Route::get('/cv', [EmailController::class, 'cv']);
+Route::post('/cv', [EmailController::class, 'cvData'])->name('cvurl');

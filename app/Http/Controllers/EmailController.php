@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PersonalMail;
 use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -37,5 +38,37 @@ class EmailController extends Controller
 
         Mail::to('info@test.com')->send(new TestMail($data));
         return 'Message sent';
+    }
+
+
+
+    public function cv()
+    {
+        return view('email.cv');
+    }
+
+    public function cvData(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'education' => 'required',
+            'cv' => 'required|mimes:pdf',
+        ]);
+
+
+        // Uplad CV File
+        $ex = $request->file('cv')->getClientOriginalExtension();
+        $new_name = 'cv_'.time().'_'.rand().'.'.$ex;
+        $request->file('cv')->move(public_path('uploads/cvfiles'), $new_name);
+
+        $data = $request->except('_token', 'cv');
+        $data['pdf'] = $new_name;
+
+        // Send Message to the site admin
+        Mail::to('admin@test.com')->send(new PersonalMail($data));
+
+        // dd($request->except('_token'));
     }
 }

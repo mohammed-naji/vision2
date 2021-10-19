@@ -21,6 +21,10 @@
 </head>
 <body>
 
+    <ul>
+        <li><a href="/cv">Enter Your CV</a></li>
+    </ul>
+
     <div class="container my-5">
         <div class="row">
             <div class="col-6">
