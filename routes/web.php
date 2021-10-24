@@ -7,6 +7,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\SiteController;
+use App\Models\Post;
 
 // Route::get('/', function () {
 //     // return 'Homepage';
@@ -77,6 +78,7 @@ Route::get('services/{name?}', function($name = '') {
 //     return "$username photos";
 // })->name('userphoto');
 Route::get('/', function() {
+    // return bcrypt(123);
     return "This is home URL New Code will be added here";
 });
 
@@ -165,3 +167,17 @@ Route::post('email', [EmailController::class, 'emailData'])->name('emailurl');
 
 Route::get('/cv', [EmailController::class, 'cv']);
 Route::post('/cv', [EmailController::class, 'cvData'])->name('cvurl');
+
+
+Route::get('add-data', function() {
+
+    // INSERT INTO posts () VALUES ();
+    Post::create([
+        'title' => 'Title From Code',
+        'content' => 'Content From Code',
+        'image' => 'image.png'
+    ]);
+
+    // Post::create($request->except('_token'));
+
+});
