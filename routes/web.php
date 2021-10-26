@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SiteController;
 use App\Models\Post;
 
@@ -180,4 +181,15 @@ Route::get('add-data', function() {
 
     // Post::create($request->except('_token'));
 
+});
+
+
+Route::prefix('products')->name('products.')->group(function(){
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('create', [ProductController::class, 'create'])->name('create');
+    Route::post('create', [ProductController::class, 'store'])->name('store');
+    Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+    Route::put('edit/{id}', [ProductController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [ProductController::class, 'destroy'])->name('destroy');
+    Route::get('show/{id}', [ProductController::class, 'show'])->name('show');
 });
