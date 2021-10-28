@@ -8,7 +8,20 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     function index() {
-        $products = Product::all();
+
+        if(request()->has('keyword')) {
+            $keyword = request()->keyword;
+            $products = Product::latest()
+            ->where('name', 'like', "%$keyword%")
+            ->orWhere('price', $keyword)
+            ->paginate(2);
+        }else {
+            $products = Product::latest()->paginate(2);
+        }
+
+
+        // $products = Product::orderBy('name', 'asc')->paginate(2);
+        // $products = Product::orderBy('name', 'asc')->paginate(2);
         return view('products.index')->with('products', $products);
         // return view('products.index', compact('products'));
         // return view('products.index',[
@@ -54,10 +67,12 @@ class ProductController extends Controller
             'stock' => $request->stock,
         ]);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Products Added Successfully');
     }
 
-    function edit() {
+    function edit($id) {
+        $product = Product::find($id);
+        dd($product);
         return view('products.');
     }
 
@@ -65,11 +80,20 @@ class ProductController extends Controller
         return view('products.');
     }
 
-    function destroy() {
-        return view('products.');
+    function destroy($id) {
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('products.index');
+        // return view('products.');
     }
 
     function show() {
         return view('products.');
+    }
+
+    public function delete_all()
+    {
+        Product::truncate();
+        return redirect()->route('products.index');
     }
 }
