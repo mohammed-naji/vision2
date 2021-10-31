@@ -40,7 +40,9 @@
 
             @forelse ($products as $pro)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    {{-- <td>{{ $loop->iteration }}</td> --}}
+                    {{-- <td>{{ $pro->id}}</td> --}}
+                    <td> <input type="checkbox" name="delete" value="{{ $pro->id }}" /> </td>
                     <td><img width="100" src="{{ asset('uploads/products/'.$pro->image) }}" alt=""></td>
                     <td>{{ $pro->name }}</td>
                     <td>{{ $pro->price }}$</td>
@@ -94,10 +96,38 @@
         </table>
         {{ $products->links() }}
 
+        <form id="delete_selected_form" method="post" action="{{ route('products.delete_selected') }}">
+            @csrf
+            @method('delete')
+
+            <input type="hidden" name="ids" value="" />
+
+        </form>
+
+        <button id="delete_selected" class="btn btn-danger btn-lg">Delete Selected</button>
+
         <a onclick="return confirm('هل انت متأكد ي ولدي؟!')" href="{{ route('products.delete_all') }}" class="btn btn-danger btn-lg">Delete All Records</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        $('#delete_selected').click(function() {
+
+            if(confirm("هل انت متاكد")) {
+                var ids = [];
+                $('input[name="delete"]:checked').each(function() {
+                    ids.push(this.value);
+                });
+                // console.log(ids);
+                $('#delete_selected_form input[name="ids"]').val( JSON.stringify(ids) );
+                $('#delete_selected_form').submit();
+            }
+        })
+
+    </script>
 
 </body>
 </html>

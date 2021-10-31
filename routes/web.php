@@ -193,4 +193,5 @@ Route::prefix('products')->name('products.')->group(function(){
     Route::delete('delete/{id}', [ProductController::class, 'destroy'])->name('destroy');
     Route::get('show/{id}', [ProductController::class, 'show'])->name('show');
     Route::get('delete_all', [ProductController::class, 'delete_all'])->name('delete_all');
+    Route::delete('delete_selected', [ProductController::class, 'delete_selected'])->name('delete_selected');
 });

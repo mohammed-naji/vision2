@@ -16,7 +16,7 @@ class ProductController extends Controller
             ->orWhere('price', $keyword)
             ->paginate(2);
         }else {
-            $products = Product::latest()->paginate(2);
+            $products = Product::latest()->paginate(5);
         }
 
 
@@ -71,13 +71,43 @@ class ProductController extends Controller
     }
 
     function edit($id) {
-        $product = Product::find($id);
-        dd($product);
-        return view('products.');
+        $product = Product::findOrFail($id);
+        return view('products.edit', compact('product'));
+
     }
 
-    function update() {
-        return view('products.');
+    function update(Request $request, $id) {
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'description' => 'required|max:400',
+            'image' => 'image|mimes:png,jpg,jpeg',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric'
+        ]);
+
+        $product = Product::findOrFail($id); // get the record from db
+
+        // if the user not upload new image use the old one
+        $new_name = $product->image;
+        if($request->hasFile('image')) {
+            // face.png => png, aa.dd.rrr.234.eesfsda.jpeg => jpeg
+            $ex = $request->file('image')->getClientOriginalExtension();
+            $new_name = 'product_'.rand().'_'.rand().'.'.$ex;
+            $request->file('image')->move(public_path('uploads/products'), $new_name);
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $new_name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
+
+
+        // $product->update($request->except('_token', 'image'));
+
+        return redirect()->route('products.index')->with('success', 'Products Updated Successfully');
     }
 
     function destroy($id) {
@@ -95,5 +125,13 @@ class ProductController extends Controller
     {
         Product::truncate();
         return redirect()->route('products.index');
+    }
+
+    public function delete_selected(Request $request)
+    {
+        $ids = json_decode($request->ids);
+        Product::whereIn('id', $ids)->delete();
+        return redirect()->route('products.index')->with('success', 'The Selected Prpduct Was
+        Deleted Successfully');
     }
 }
