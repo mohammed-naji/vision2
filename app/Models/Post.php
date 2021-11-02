@@ -15,4 +15,9 @@ class Post extends Model
     protected $guarded = [];
 
     // protected $table = 'my_table';
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

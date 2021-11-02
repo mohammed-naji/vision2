@@ -7,6 +7,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RelationController;
 use App\Http\Controllers\SiteController;
 use App\Models\Post;
 
@@ -195,3 +196,11 @@ Route::prefix('products')->name('products.')->group(function(){
     Route::get('delete_all', [ProductController::class, 'delete_all'])->name('delete_all');
     Route::delete('delete_selected', [ProductController::class, 'delete_selected'])->name('delete_selected');
 });
+
+
+Route::get('one_to_one', [RelationController::class, 'one_to_one']);
+Route::get('one_to_many', [RelationController::class, 'one_to_many']);
+
+
+
+
